@@ -1,6 +1,7 @@
 import React from "react";
 import Input from "../Input/Input";
 import Result from "../Results/Result";
+import { useQuery } from "react-query";
 
 const Home = () => {
   const [search, setSearch] = React.useState("");
@@ -11,8 +12,7 @@ const Home = () => {
         <Input type="text" id={search} name={search} setValue={setSearch} />
       </form>
 
-      <button>Buscar</button>
-      <Result userInput={search}/>
+      <Result userInput={search} />
     </div>
   );
 };

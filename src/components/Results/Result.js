@@ -3,9 +3,8 @@ import axios from "axios";
 import { useQuery } from "react-query";
 
 const Result = ({ userInput }) => {
-  const [searchResults, setSearchResults] = React.useState("");
+  const [searchResults, setSearchResults] = React.useState([]);
 
-  console.log(searchResults);
   const fetchResult = async () => {
     const { data } = await axios.get("https://cid.api.mokasoft.org/cid10");
     return data;
@@ -14,14 +13,35 @@ const Result = ({ userInput }) => {
   const { data, isLoading, error } = useQuery("result", fetchResult);
 
   React.useEffect(() => {
-    const results = data?.filter((item) => {
-      item.nome.toLowerCase().includes(userInput);
-    });
-    setSearchResults(results);
-    console.log(searchResults)
+    if (isLoading === false && userInput.length > 3) {
+      const resultsFilter = data.filter((item) => {
+        if (item.nome.toLowerCase().indexOf(userInput.toLowerCase()) !== -1) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      setSearchResults(resultsFilter);
+    }
   }, [userInput, data]);
 
-  return <div>{searchResults}</div>;
+  React.useEffect(() => {
+    console.log(searchResults);
+  }, [searchResults]);
+
+  if (isLoading) return <div>Carregando...</div>;
+  if (error) return <div>Algo errado não está certo</div>;
+
+  return (
+    <ul>
+      {searchResults.map((item) => (
+        <li key={item.nome}>
+          <div>{item.nome}</div>
+          <div>{item.codigo}</div>
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default Result;
