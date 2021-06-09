@@ -11,6 +11,7 @@ const Input = ({ label, id, value, setValue, ...props }) => {
         name={id}
         value={value}
         onChange={({ target }) => setValue(target.value)}
+        className="inputSearch"
       />
       <div></div>
     </StyledInput>

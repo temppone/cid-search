@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
+import { StyledResult } from "./Result.styled";
 
 const Result = ({ userInput }) => {
   const [searchResults, setSearchResults] = React.useState([]);
@@ -33,14 +34,16 @@ const Result = ({ userInput }) => {
   if (error) return <div>Algo errado não está certo</div>;
 
   return (
-    <ul>
-      {searchResults.map((item) => (
-        <li key={item.nome}>
-          <div>{item.nome}</div>
-          <div>{item.codigo}</div>
-        </li>
-      ))}
-    </ul>
+    <StyledResult>
+      <ul>
+        {searchResults.map((item) => (
+          <li key={item.nome}>
+            <div>{item.nome}</div>
+            <div>{item.codigo}</div>
+          </li>
+        ))}
+      </ul>
+    </StyledResult>
   );
 };
 
