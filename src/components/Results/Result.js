@@ -2,12 +2,13 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { StyledResult } from "./Result.styled";
+import { books } from "./CidContent/Cid10";
 
 const Result = ({ userInput }) => {
   const [searchResults, setSearchResults] = React.useState([]);
 
   const fetchResult = async () => {
-    const { data } = await axios.get("https://cid.api.mokasoft.org/cid10");
+    const { data } = await axios.get(`${books.cid10}`);
     return data;
   };
 
@@ -31,8 +32,8 @@ const Result = ({ userInput }) => {
   }, [searchResults]);
 
   if (isLoading) return <div>Carregando...</div>;
-  if (error) return <div>Algo errado não está certo</div>;
-
+  if (error) return <div>Algo errado não está certo </div>;
+  console.log(error);
   return (
     <StyledResult>
       <ul>

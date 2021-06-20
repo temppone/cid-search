@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div>
       <form className="homeForm" onSubmit={(e) => e.preventDefault()}>
-        <Input type="text" id={search} name={search} setValue={setSearch} />
+        <Input type="text" id={search} name={search} setValue={setSearch} placeholder="Digite"/>
       </form>
         <Result userInput={search} />
     </div>
